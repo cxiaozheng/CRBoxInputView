@@ -20,6 +20,7 @@ typedef NS_ENUM(NSInteger, CRBoxTextChangeType) {
 {
     NSInteger _oldLength;
     BOOL _ifNeedBeginEdit;
+    BOOL _isShowKeyboard = false;
 }
 
 @property (nonatomic, assign) NSInteger codeLength;
@@ -69,6 +70,19 @@ typedef NS_ENUM(NSInteger, CRBoxTextChangeType) {
 {
     self = [super init];
     if (self) {
+        [self initDefaultValue];
+        [self addNotificationObserver];
+        self.codeLength = codeLength;
+    }
+    
+    return self;
+}
+
+- (instancetype _Nullable )initWithCodeLength:(NSInteger)codeLength isShowKeyboard:(Bool)isShowKeyboard
+{
+    self = [super init];
+    if (self) {
+        _isShowKeyboard = isShowKeyboard;
         [self initDefaultValue];
         [self addNotificationObserver];
         self.codeLength = codeLength;
@@ -200,6 +214,10 @@ typedef NS_ENUM(NSInteger, CRBoxTextChangeType) {
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    [self textFieldDidBeginEdit];
+}
+
+- (void)textFieldDidBeginEdit {
     _ifNeedBeginEdit = YES;
     
     if (self.ifClearAllInBeginEditing && self.textValue.length == self.codeLength) {
@@ -226,9 +244,14 @@ typedef NS_ENUM(NSInteger, CRBoxTextChangeType) {
 
 #pragma mark - TextViewEdit
 - (void)beginEdit{
-    if (![self.textView isFirstResponder]) {
-        [self.textView becomeFirstResponder];
+    if(_isShowKeyboard == false) {
+        if (![self.textView isFirstResponder]) {
+            [self.textView becomeFirstResponder];
+        }
+    } else {
+        [self textFieldDidBeginEdit];
     }
+    
 }
 
 - (void)endEdit{
