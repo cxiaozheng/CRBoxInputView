@@ -245,7 +245,7 @@ typedef NS_ENUM(NSInteger, CRBoxTextChangeType) {
 
 #pragma mark - TextViewEdit
 - (void)beginEdit{
-    if(_isShowKeyboard == false) {
+    if(_isShowKeyboard == YES) {
         if (![self.textView isFirstResponder]) {
             [self.textView becomeFirstResponder];
         }
