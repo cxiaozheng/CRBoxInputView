@@ -20,7 +20,7 @@ typedef NS_ENUM(NSInteger, CRBoxTextChangeType) {
 {
     NSInteger _oldLength;
     BOOL _ifNeedBeginEdit;
-    BOOL _isShowKeyboard = NO;
+    BOOL _isShowKeyboard;
 }
 
 @property (nonatomic, assign) NSInteger codeLength;
@@ -70,6 +70,7 @@ typedef NS_ENUM(NSInteger, CRBoxTextChangeType) {
 {
     self = [super init];
     if (self) {
+        _isShowKeyboard = YES;
         [self initDefaultValue];
         [self addNotificationObserver];
         self.codeLength = codeLength;
