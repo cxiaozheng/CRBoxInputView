@@ -161,6 +161,6 @@ default: @""
 
 // Init
 - (instancetype _Nullable )initWithCodeLength:(NSInteger)codeLength;
-- (instancetype _Nullable )initWithCodeLength:(NSInteger)codeLength isShowKeyboard:(Bool)isShowKeyboard;
+- (instancetype _Nullable )initWithCodeLength:(NSInteger)codeLength isShowKeyboard:(BOOL)isShowKeyboard;
 
 @end
